@@ -32,9 +32,7 @@ function runTest(func) {
       ['abc', true],
       ['abca', false],
       ['abcdec', false]
-    ].map(function(c) {
-      return test.makeCase(c[0], c[1]);
-    })
+    ].map(test.makeCaseFromArray)
   );
 }
 

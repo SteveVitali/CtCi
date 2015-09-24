@@ -15,7 +15,5 @@ test.test(reverse, [
     ['ab', 'ba'],
     ['racecar', 'racecar'],
     ['javascript', 'tpircsavaj']
-  ].map(function(c) {
-    return test.makeCase(c[0], c[1]);
-  })
+  ].map(test.makeCaseFromArray)
 );

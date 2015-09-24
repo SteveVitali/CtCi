@@ -28,3 +28,13 @@ exports.makeCase = function(inputArgs, output) {
     output: output
   };
 };
+
+/**
+ * Another 'case' object constructor for convenience
+ * @param  {Array} arr 2-element array with input and output data
+ * @return {Object}    A corresponding 'case' object
+ */
+exports.makeCaseFromArray = function(arr) {
+  if (!arr || !arr.length >= 2) throw 'Bad input';
+  return exports.makeCase(arr[0], arr[1]);
+};
