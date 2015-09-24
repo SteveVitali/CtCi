@@ -9,12 +9,28 @@ var _ = require('lodash');
 exports.test = function(func, cases) {
   return _.reduce(cases, function(memo, c) {
     // NOTE: only works for primitive output types
-    var success = func.apply(this, c.input) === c.output;
-    var result = success ? 'succeeds' : 'fails';
-    console.log(func.name + ' ' + result + ' for input "' + c.input + '"');
-    return success && memo;
+    var output = func.apply(this, c.input);
+    logResult(func, c, output);
+    return memo && output === c.output;
   }, true);
 };
+
+/**
+ * Log the result of the test to the console
+ * @param  {Function} func The function being tested
+ * @param  {Object}   expected The 'case' object for the test
+ * @param  {Any}      output   The output (native type)
+ */
+function logResult(func, testCase, output) {
+  var expect = testCase.output;
+  var success = expect === output;
+  var resultStr = success ? 'succeeds' : 'fails';
+  var inputStr = 'for input <' + testCase.input + '>.';
+  console.log(
+    func.name + ' ' + resultStr + ' ' + inputStr + (
+    !success ? ' Expected <' + expect + '>' + ' but got <' + output + '>' : ''
+  ));
+}
 
 /**
  * Make a 'case' object with input and output values
