@@ -89,6 +89,16 @@ LinkedList.prototype.listEquals = function(list) {
   return true;
 };
 
+LinkedList.prototype.toArray = function() {
+  var arr = [];
+  var node = this.head;
+  while (node !== null) {
+    arr.push(node.data);
+    node = node.next;
+  }
+  return arr;
+};
+
 var buildList = function(arr) {
   var list = new LinkedList();
   _.each(arr, function(elem) {
