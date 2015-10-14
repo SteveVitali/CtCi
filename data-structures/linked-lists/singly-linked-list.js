@@ -1,13 +1,6 @@
 var assert = require('chai').assert;
- var _ = require('lodash');
-/**
- * Initialize a ListNode with data
- * @param {Any} data The ListNode data
- */
-var ListNode = function(data) {
-  this.next = null;
-  this.data = data;
-};
+var _ = require('lodash');
+var ListNode = require('./list-node').ListNode;
 
 /**
  * Initialize a LinkedList with no data
@@ -165,8 +158,7 @@ var test = function() {
 };
 
 module.exports = {
-  LinkedList: LinkedList,
-  ListNode: ListNode,
+  SinglyLinkedList: LinkedList,
   buildList: buildList,
   test: test
 };
