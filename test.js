@@ -8,7 +8,6 @@ var _ = require('lodash');
  */
 exports.test = function(func, cases) {
   return _.reduce(cases, function(memo, c) {
-    // NOTE: only works for primitive output types
     var output = undefined;
     try {
       output = func.apply(this, c.input);
