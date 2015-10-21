@@ -9,10 +9,22 @@ var _ = require('lodash');
 exports.test = function(func, cases) {
   return _.reduce(cases, function(memo, c) {
     // NOTE: only works for primitive output types
-    var output = func.apply(this, c.input);
+    var output = undefined;
+    try {
+      output = func.apply(this, c.input);
+    } catch (e) {}
     logResult(func, c, output);
     return memo && output === c.output;
   }, true);
+};
+
+/**
+ * Format input data for console output
+ * @param  {Any} data Some data
+ * @return {String}   A string representation
+ */
+var format = function(input) {
+  return JSON.stringify(input);
 };
 
 /**
@@ -25,10 +37,13 @@ function logResult(func, testCase, output) {
   var expect = testCase.output;
   var success = expect === output;
   var resultStr = success ? 'succeeds' : 'fails';
-  var inputStr = 'for input <' + testCase.input + '>.';
+  var inputStr = 'for input <' + format(testCase.input) + '>.';
   console.log(
     func.name + ' ' + resultStr + ' ' + inputStr + (
-    !success ? ' Expected <' + expect + '>' + ' but got <' + output + '>' : ''
+    !success
+      ? ' Expected <' + format(expect) + '>' +
+        ' but got <' + format(output) + '>'
+      : ''
   ));
 }
 
