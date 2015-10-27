@@ -1,4 +1,3 @@
-var assert = require('chai').assert;
 var _ = require('lodash');
 var ListNode = require('./list-node').ListNode;
 
@@ -101,6 +100,7 @@ var buildList = function(arr) {
 };
 
 var test = function() {
+  var assert = require('chai').assert;
   var list = new LinkedList();
   assert.equal(0, list.getSize());
   assert.isFalse(list.contains(1));
