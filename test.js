@@ -33,7 +33,7 @@ var format = function(input) {
  */
 var formatInput = function(args) {
   return '(' + _.reduce(args, function(memo, value, index) {
-    return format(value) + (index !== args.length - 1 ? ', ' : '');
+    return memo + format(value) + (index !== args.length - 1 ? ', ' : '');
   }, '') + ')';
 };
 
@@ -48,7 +48,7 @@ var equals = function equals(a, b) {
   if (a === b || a == b) return true;
   // Handle arrays
   if (_.isArray(a)) {
-    if (!_.isArray(b) || b.length !== a.length){
+    if (!_.isArray(b) || b.length !== a.length) {
       return false;
     }
     return _.reduce(a, function(memo, value, index) {
