@@ -38,6 +38,27 @@ function twoSumEfficient(arr, num) {
   }
 }
 
+function twoSumHashMap(arr, num) {
+  var map = {};
+  for (var i in arr) {
+    // Map value to all indices where it occurs
+    map[arr[i]] = (map[arr[i]] || []).concat([i]);
+  }
+  for (var key in map) {
+    var z = num - key;
+    if (z in map) {
+      var i = map[key][0];
+      var j = z != key
+        ? map[z][0]
+        : map[z][1];
+      if (j === undefined) return;
+      return i <= j
+        ? [i, j]
+        : [j, i];
+    }
+  }
+}
+
 var testCases = [
   [[[], 0], undefined],
   [[[0], 0], undefined],
@@ -48,3 +69,4 @@ var testCases = [
 
 test.test(twoSumBruteForce, testCases);
 test.test(twoSumEfficient, testCases);
+test.test(twoSumHashMap, testCases);
