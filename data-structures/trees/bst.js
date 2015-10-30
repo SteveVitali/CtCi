@@ -10,6 +10,12 @@ var BST = function() {
   this.root = null;
 };
 
+/**
+ * Insert a value into the BST
+ * Best case O(lgn), Worse case O(n)
+ * @param  {Any}     val The value to insert
+ * @return {Boolean} True if new value; false otherwise
+ */
 BST.prototype.insert = function(val) {
   if (!this.root) {
     return !!(this.root = new TreeNode(val));
@@ -25,9 +31,9 @@ BST.prototype.insert = function(val) {
         ? !!(node.right = new TreeNode(val))
         : !!insert(node.right, val);
     }
-    return true;
+    return false;
   };
-  insert(this.root, val);
+  return insert(this.root, val);
 };
 
 BST.prototype.remove = function(val) {
@@ -59,22 +65,48 @@ BST.prototype.searchIterative = function(val) {
   return !!node;
 };
 
+/**
+ * Get the minimum element in the BST
+ * @return {Any} The smallest element
+ */
+BST.prototype.getMinimum = function() {
+  return (function getMinimum(node, val) {
+    return node.left ? getMinimum(node.left) : node.val;
+  })(this.root);
+};
+
+/**
+ * Get the maximum element in the BST
+ * @return {Any} The largest element
+ */
+BST.prototype.getMaximum = function() {
+  return (function getMaximum(node, val) {
+    return node.right ? getMaximum(node.right) : node.val;
+  })(this.root);
+};
+
 var test = function() {
   var assert = require('chai').assert;
   var tree = new BST();
 
   assert.isFalse(tree.search(1));
   assert.isFalse(tree.searchIterative(1));
+  assert.equal(tree.getMinimum(), 1);
+  assert.equal(tree.getMaximum(), 1);
 
   tree.insert(4);
 
   assert.isTrue(tree.search(4));
   assert.isTrue(tree.searchIterative(4));
+  assert.equal(tree.getMinimum(), 1);
+  assert.equal(tree.getMaximum(), 4);
 
-  var vals = [5, 3, 1, 2];
+  var vals = [5, 3, 1, 2, 0];
   _.each(vals, function(v) { tree.insert(v); });
   _.each(vals, function(v) { assert.isTrue(tree.search(v)); });
   _.each(vals, function(v) { assert.isTrue(tree.searchIterative(v)); });
+  assert.equal(tree.getMinimum(), 0);
+  assert.equal(tree.getMaximum(), 5);
 };
 
 // test();
