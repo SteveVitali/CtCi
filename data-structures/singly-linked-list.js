@@ -1,5 +1,10 @@
 var _ = require('lodash');
-var ListNode = require('./list-node').ListNode;
+
+var ListNode = function(data) {
+  this.next = null;
+  this.prev = null;
+  this.data = data;
+};
 
 /**
  * Initialize a LinkedList with no data

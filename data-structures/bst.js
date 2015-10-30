@@ -175,8 +175,6 @@ var test = function() {
   assert.isFalse(tree.remove(4));
 };
 
-test();
-
 module.exports = {
   BST: BST,
   TreeNode: TreeNode,
