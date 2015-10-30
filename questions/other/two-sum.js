@@ -23,8 +23,8 @@ function twoSumBruteForce(arr, num) {
   }
 }
 
-// Two-Sum Efficient: O(nlgn)
-function twoSumEfficient(arr, num) {
+// Two-Sum Sorted Array: O(nlgn)
+function twoSumSortedArray(arr, num) {
   var sorted = MergeSort(arr);
   for (var i = 0; i < arr.length; i++) {
     var target = num - arr[i];
@@ -38,6 +38,7 @@ function twoSumEfficient(arr, num) {
   }
 }
 
+// HashMap: Amortized O(n)
 function twoSumHashMap(arr, num) {
   var map = {};
   for (var i in arr) {
@@ -68,5 +69,5 @@ var testCases = [
 ].map(test.makeCaseFromArray);
 
 test.test(twoSumBruteForce, testCases);
-test.test(twoSumEfficient, testCases);
+test.test(twoSumSortedArray, testCases);
 test.test(twoSumHashMap, testCases);
