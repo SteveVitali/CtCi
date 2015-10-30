@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var BinaryTree = require('./binary-tree');
 
 var BST = function() {
   this.root = null;
@@ -130,6 +131,30 @@ BST.prototype.searchIterative = function(val) {
       : (node.data > val ? node.left : node.right);
   };
   return !!node;
+};
+
+/**
+ * Walk the tree in pre-order
+ * @param  {Function} traverse What do do on each node
+ */
+BST.prototype.preOrder = function(traverse) {
+  BinaryTree.preOrder(this.root, traverse);
+};
+
+/**
+ * Walk the tree in post-order
+ * @param  {Function} traverse What do do on each node
+ */
+BST.prototype.postOrder = function(traverse) {
+  BinaryTree.postOrder(this.root, traverse);
+};
+
+/**
+ * Walk the tree in-order
+ * @param  {Function} traverse What do do on each node
+ */
+BST.prototype.inOrder = function(traverse) {
+  BinaryTree.inOrder(this.root, traverse);
 };
 
 var test = function() {
