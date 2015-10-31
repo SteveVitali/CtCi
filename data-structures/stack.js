@@ -1,4 +1,8 @@
-var ListNode = require('./linked-lists/list-node').ListNode;
+var ListNode = function(data) {
+  this.next = null;
+  this.prev = null;
+  this.data = data;
+};
 
 var Stack = function() {
   this.head = null;

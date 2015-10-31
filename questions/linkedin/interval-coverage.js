@@ -16,7 +16,7 @@ var getCoverage = function(intervals) {
     if (a[0] === b[0]) return (
       a[1] > b[1] ? -1 : (a[1] === b[1] ? 0 : 1)
     );
-      return -1;
+    return -1;
   });
 
   /**
