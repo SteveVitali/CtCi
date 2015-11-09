@@ -15,7 +15,7 @@
   "disallowYodaConditions": true,
   "maximumLineLength": 80,
   "requireCommaBeforeLineBreak": true,
-  "requireCurlyBraces": ["for", "do", "while"],
+  "requireCurlyBraces": ["for", "do"],
   "requireKeywordsOnNewLine": ["for", "while", "do"],
   "requireLineBreakAfterVariableAssignment": true,
   "requireLineFeedAtFileEnd": true,
