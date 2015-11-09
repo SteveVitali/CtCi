@@ -157,15 +157,32 @@ BST.prototype.inOrder = function(traverse) {
   BinaryTree.inOrder(this.root, traverse);
 };
 
+/**
+ * Tell whether the tree is balanced
+ */
+BST.prototype.isBalanced = function() {
+  return BinaryTree.isBalanced(this.root);
+};
+
+/**
+ * Get the height of the tree
+ */
+BST.prototype.height = function() {
+  return BinaryTree.height(this.root);
+};
+
 var test = function() {
   var assert = require('chai').assert;
   var tree = new BST();
 
   assert.isFalse(tree.search(4));
   assert.isFalse(tree.searchIterative(4));
+  assert.equal(tree.height(), 0);
 
   assert.isTrue(tree.insert(4));
   assert.isFalse(tree.insert(4));
+  assert.equal(tree.height(), 1);
+  assert.isTrue(tree.isBalanced());
 
   assert.equal(tree.getMinimum(), 4);
   assert.equal(tree.getMaximum(), 4);
@@ -179,6 +196,9 @@ var test = function() {
   _.each(vals, function(v) { assert.isTrue(tree.searchIterative(v)); });
   assert.equal(tree.getMinimum(), 0);
   assert.equal(tree.getMaximum(), 10);
+  assert.equal(tree.height(), 5);
+  console.log('ay');
+  assert.isFalse(tree.isBalanced());
 
   // Simple delete: no children
   assert.isTrue(tree.remove(0));
@@ -198,7 +218,15 @@ var test = function() {
   assert.isFalse(tree.remove(0));
   assert.isFalse(tree.remove(6));
   assert.isFalse(tree.remove(4));
+
+  tree.insert(11);
+  tree.insert(12);
+  tree.insert(13);
+  tree.insert(14);
+  assert.isFalse(tree.isBalanced());
 };
+
+test();
 
 module.exports = {
   BST: BST,
