@@ -40,9 +40,31 @@ var inOrder = function inOrder(node, traverse) {
   node.right && postOrder(node.right, traverse);
 };
 
+/**
+ * Count the height of a node (# of nodes from root to farthest leaf)
+ * @param  {Node} node The Node whose height we desire
+ * @return {Number}    The distance in nodes from root to farthest leaf
+ */
+var height = function(node) {
+  return (function h(n, depth) {
+    return n
+      ? Math.max(h(n.left, depth + 1), h(n.right, depth + 1))
+      : depth;
+  })(node, 0);
+};
+
+var isBalanced = function isBalanced(node) {
+  if (!node) return true;
+  return Math.abs(height(node.left) - height(node.right)) <= 1
+     && isBalanced(node.left)
+     && isBalanced(node.right);
+};
+
 module.exports = {
   BinaryTree: BinaryTree,
   preOrder: preOrder,
   postOrder: postOrder,
-  inOrder: inOrder
+  inOrder: inOrder,
+  isBalanced: isBalanced,
+  height: height
 };
