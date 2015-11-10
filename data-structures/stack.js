@@ -40,6 +40,17 @@ Stack.prototype.getSize = function() {
   return this.size;
 };
 
+Stack.prototype.toArray = function() {
+  var arr = [];
+  while (this.getSize() > 0) {
+    arr.push(this.pop());
+  }
+  for (var i = arr.length - 1; i >= 0; i--) {
+    this.push(arr[i]);
+  }
+  return arr;
+};
+
 var test = function() {
   var assert = require('chai').assert;
   var stack = new Stack();
@@ -56,6 +67,7 @@ var test = function() {
   stack.push(4);
   stack.push(5);
 
+  assert.equal(4, stack.toArray()[1]);
   assert.equal(4, stack.getSize());
   assert.equal(5, stack.pop());
   assert.equal(3, stack.getSize());
@@ -71,6 +83,7 @@ var test = function() {
   assert.isNull(stack.peek());
   assert.equal(0, stack.getSize());
 };
+test();
 
 module.exports = {
   Stack: Stack,
