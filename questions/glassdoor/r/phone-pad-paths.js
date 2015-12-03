@@ -1,4 +1,4 @@
-var test = require('../../test');
+var test = require('../../../test');
 var _ = require('lodash');
 
 // Print the possible paths of Chess night on a phone keypad
@@ -69,11 +69,11 @@ var getMoves = function(startNumber, numberOfMoves) {
   if (numberOfMoves === 0) return [[startNumber]];
 
   var moves = [];
-  var initialDestinations = possibleMoves(startNumber);
+  var destinations = possibleMoves(startNumber);
 
-  for (var i = 0; i < initialDestinations.length; i++) {
+  for (var i = 0; i < destinations.length; i++) {
 
-    var nextMoves = getMoves(initialDestinations[i], numberOfMoves - 1);
+    var nextMoves = getMoves(destinations[i], numberOfMoves - 1);
 
     for (var j = 0; j < nextMoves.length; j++) {
       moves.push([startNumber].concat(nextMoves[j]));
