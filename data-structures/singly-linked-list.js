@@ -1,112 +1,112 @@
-var _ = require('lodash');
-
-var ListNode = function(data) {
-  this.next = null;
-  this.prev = null;
-  this.data = data;
-};
-
-/**
- * Initialize a LinkedList with no data
- */
-var LinkedList = function(data) {
-  this.head = null;
-  this.tail = null;
-  this.size = 0;
-};
-
-LinkedList.prototype.add = function(data) {
-  if (this.size === 0) {
-    this.head = new ListNode(data);
-    this.tail = this.head;
-  } else {
-    var newTail = new ListNode(data);;
-    this.tail.next = newTail;
-    this.tail = newTail;
+export class ListNode {
+  constructor(data) {
+    this.next = null;
+    this.prev = null;
+    this.data = data;
   }
-  this.size++;
-};
+}
 
-LinkedList.prototype.remove = function(index) {
-  if (this.size === 0 || index >= this.size) return null;
-  if (index === 0) {
-    var toDelete = this.head;
-    this.head = this.head.next;
-    this.tail = this.size === 1 ? null : this.tail;
-  } else {
-    var currNode = this.head;
-    // Loop until currNode = node before deletion
-    for (var i = 0; i < index - 1; i++) {
+export default class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
+  static build(arr) {
+    const list = new SinglyLinkedList();
+    arr.map(e => list.add(e));
+    return list;
+  }
+
+  add(data) {
+    if (this.size === 0) {
+      this.head = new ListNode(data);
+      this.tail = this.head;
+    } else {
+      const newTail = new ListNode(data);;
+      this.tail.next = newTail;
+      this.tail = newTail;
+    }
+    this.size++;
+  }
+
+  remove(index) {
+    if (this.size === 0 || index >= this.size) return null;
+    if (index === 0) {
+      var toDelete = this.head;
+      this.head = this.head.next;
+      this.tail = this.size === 1 ? null : this.tail;
+    } else {
+      let currNode = this.head;
+      // Loop until currNode = node before deletion
+      for (let i = 0; i < index - 1; i++) {
+        currNode = currNode.next;
+      }
+      var toDelete = currNode.next;
+      currNode.next = toDelete.next;
+    }
+    this.size--;
+    return toDelete.data;
+  }
+
+  get(index) {
+    if (index < 0 || index >= this.size) return null;
+
+    let currNode = this.head;
+    for (let i = 0; i < index; i++) {
       currNode = currNode.next;
     }
-    var toDelete = currNode.next;
-    currNode.next = toDelete.next;
+    return currNode.data;
   }
-  this.size--;
-  return toDelete.data;
-};
 
-LinkedList.prototype.get = function(index) {
-  if (index < 0 || index >= this.size) return null;
-
-  var currNode = this.head;
-  for (var i = 0; i < index; i++) {
-    currNode = currNode.next;
+  contains(data) {
+    let currNode = this.head;
+    while (currNode !== null && currNode.data != data) {
+      currNode = currNode.next;
+    }
+    return currNode !== null;
   }
-  return currNode.data;
-};
 
-LinkedList.prototype.contains = function(data) {
-  var currNode = this.head;
-  while (currNode !== null && currNode.data != data) {
-    currNode = currNode.next;
+  getSize() {
+    return this.size;
   }
-  return currNode !== null;
-};
 
-LinkedList.prototype.getSize = function() {
-  return this.size;
-};
-
-LinkedList.prototype.getHead = function() {
-  return this.head;
-};
-
-LinkedList.prototype.listEquals = function(list) {
-  if (list.size !== this.size) return false;
-  var myNode = this.head;
-  var theirNode = list.head;
-  while (myNode !== null) {
-    if (myNode.data != theirNode.data) return false;
-    myNode = myNode.next;
-    theirNode = theirNode.next;
-    if (myNode === null && theirNode !== null) return false;
-    if (theirNode === null && myNode !== null) return false;
+  getHead() {
+    return this.head;
   }
-  return true;
-};
 
-LinkedList.prototype.toArray = function() {
-  var arr = [];
-  var node = this.head;
-  while (node !== null) {
-    arr.push(node.data);
-    node = node.next;
+  equals(list) {
+    if (list.size !== this.size) return false;
+    let myNode = this.head;
+    let theirNode = list.head;
+    while (myNode !== null) {
+      if (myNode.data != theirNode.data) return false;
+      myNode = myNode.next;
+      theirNode = theirNode.next;
+      if (myNode === null && theirNode !== null) return false;
+      if (theirNode === null && myNode !== null) return false;
+    }
+    return true;
   }
-  return arr;
-};
 
-var buildList = function(arr) {
-  var list = new LinkedList();
-  _.each(arr, function(elem) {
-    list.add(elem);
-  });
-  return list;
-};
+  asArray() {
+    const arr = [];
+    let node = this.head;
+    while (node !== null) {
+      arr.push(node.data);
+      node = node.next;
+    }
+    return arr;
+  }
+}
 
-var test = function() {
-  var assert = require('chai').assert;
-  var list = new LinkedList();
+export function test() {
+  console.log('Running SinglyLinkedList tests...');
+
+  const assert = require('chai').assert;
+  const list = new SinglyLinkedList();
+  const buildList = SinglyLinkedList.build;
   assert.equal(0, list.getSize());
   assert.isFalse(list.contains(1));
 
@@ -154,16 +154,11 @@ var test = function() {
   assert.isFalse(list.contains(3));
 
   // Test listEquals
-  assert.isTrue(buildList([]).listEquals(buildList([])));
-  assert.isFalse(buildList([]).listEquals(buildList([1])));
-  assert.isTrue(buildList([1]).listEquals(buildList([1])));
-  assert.isFalse(buildList([1]).listEquals(buildList([2])));
-  assert.isTrue(buildList([1, 2, 3, 4]).listEquals(buildList([1, 2, 3, 4])));
-  assert.isFalse(buildList([1, 2, 3, 4]).listEquals(buildList([1, 2, 4, 3])));
-};
-
-module.exports = {
-  SinglyLinkedList: LinkedList,
-  buildList: buildList,
-  test: test
+  assert.isTrue(buildList([]).equals(buildList([])));
+  assert.isFalse(buildList([]).equals(buildList([1])));
+  assert.isTrue(buildList([1]).equals(buildList([1])));
+  assert.isFalse(buildList([1]).equals(buildList([2])));
+  assert.isTrue(buildList([1, 2, 3, 4]).equals(buildList([1, 2, 3, 4])));
+  assert.isFalse(buildList([1, 2, 3, 4]).equals(buildList([1, 2, 4, 3])));
+  console.log('Success!');
 };
