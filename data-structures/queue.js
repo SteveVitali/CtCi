@@ -4,43 +4,59 @@ var ListNode = function(data) {
   this.data = data;
 };
 
-var Queue = function() {
-  this.head = null;
-  this.tail = null;
-  this.size = 0;
-};
-
-Queue.prototype.enqueue = function(val) {
-  if (this.size === 0) {
-    this.head = new ListNode(val);
-    this.tail = this.head;
-  } else {
-    this.tail.next = new ListNode(val);
-    this.tail = this.tail.next;
+export default class Queue {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
   }
-  this.size++;
-};
 
-Queue.prototype.dequeue = function() {
-  if (this.size === 0) return null;
-  var data = this.head.data;
-  this.head = this.head.next;
-  if (this.head === null) this.tail = null;
-  this.size--;
-  return data;
-};
+  enqueue(val) {
+    if (this.size === 0) {
+      this.head = new ListNode(val);
+      this.tail = this.head;
+    } else {
+      this.tail.next = new ListNode(val);
+      this.tail = this.tail.next;
+    }
+    this.size++;
+  }
 
-Queue.prototype.peek = function() {
-  return this.head && this.head.data;
-};
+  dequeue() {
+    if (this.size === 0) return null;
+    var data = this.head.data;
+    this.head = this.head.next;
+    if (this.head === null) this.tail = null;
+    this.size--;
+    return data;
+  }
 
-Queue.prototype.getSize = function() {
-  return this.size;
-};
+  peek() {
+    return this.head && this.head.data;
+  }
 
-var test = function() {
-  var assert = require('chai').assert;
-  var q = new Queue();
+  getSize() {
+    return this.size;
+  }
+
+  toString() {
+    let str = 'HEAD:';
+    let curr = this.head;
+    while (curr !== null) {
+      str += curr.data + ',';
+      curr = curr.next;
+    }
+    return str + ':TAIL';
+  }
+
+  print() {
+    console.log(this.toString());
+  }
+}
+
+const test = function() {
+  const assert = require('chai').assert;
+  const q = new Queue();
 
   assert.equal(0, q.getSize());
 
@@ -70,7 +86,4 @@ var test = function() {
   assert.equal(0, q.getSize());
 };
 
-module.exports = {
-  Queue: Queue,
-  test: test
-};
+export default Queue;
