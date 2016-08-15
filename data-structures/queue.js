@@ -1,8 +1,10 @@
-var ListNode = function(data) {
-  this.next = null;
-  this.prev = null;
-  this.data = data;
-};
+class ListNode {
+  constructorx(data) {
+    this.next = null;
+    this.prev = null;
+    this.data = data;
+  }
+}
 
 export default class Queue {
   constructor() {
@@ -85,5 +87,3 @@ const test = function() {
   assert.equal(5, q.dequeue());
   assert.equal(0, q.getSize());
 };
-
-export default Queue;
